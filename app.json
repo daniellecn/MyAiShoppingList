@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "MyAIShoppingList",
+    "slug": "MyAIShoppingList",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "האפליקציה משתמשת במיקרופון לזיהוי קול להוספת פריטים",
+        "NSSpeechRecognitionUsageDescription": "האפליקציה משתמשת בזיהוי קול לכתיבת שמות פריטים"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#4CAF50",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.INTERNET"
+      ],
+      "package": "com.anonymous.MyAIShoppingList"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d4fae2a1-2019-4af8-969b-7aa2aa6fd2de"
+      }
+    },
+    "owner": "ddaniellecn",
+    "updates": {
+      "url": "https://u.expo.dev/d4fae2a1-2019-4af8-969b-7aa2aa6fd2de"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    }
+  }
+}
