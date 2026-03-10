@@ -7,6 +7,7 @@ import { useFrequencySuggestions, Suggestion } from '../hooks/useFrequencySugges
 import { useStore } from '../store/useStore';
 import { getAllDepartments } from '../data/departments';
 import { guessDepartment } from '../data/itemDepartmentMap';
+import { Colors } from '../theme/colors';
 
 interface DeptSection {
   deptId: string;
@@ -199,11 +200,11 @@ const styles = StyleSheet.create({
     elevation: 1, shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.07, shadowRadius: 2,
   },
-  cardSelected: { borderColor: '#5C8A6B', backgroundColor: '#f0f6f2' },
+  cardSelected: { borderColor: Colors.brand, backgroundColor: '#f0f6f2' },
   checkCircle: { fontSize: 22, color: '#ccc', width: 26, textAlign: 'center' },
-  checkCircleOn: { color: '#5C8A6B', fontWeight: '700' },
+  checkCircleOn: { color: Colors.brand, fontWeight: '700' },
   cardBody: { flex: 1 },
-  itemName: { fontSize: 15, fontWeight: '600', color: '#1a1a1a' },
+  itemName: { fontSize: 15, fontWeight: '600', color: Colors.textPrimary },
   meta: { fontSize: 12, color: '#888', marginTop: 2 },
   urgentBadge: {
     backgroundColor: '#C4655A', paddingHorizontal: 8, paddingVertical: 3,

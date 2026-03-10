@@ -11,9 +11,10 @@ import { parseVoiceInput } from '../utils/voiceParse';
 import { useVoiceInput } from '../hooks/useVoiceInput';
 import { VoiceButton } from './VoiceButton';
 import { Unit } from '../types';
+import { Colors } from '../theme/colors';
 
 const UNITS: Unit[] = ['יח', 'ק"ג', 'גרם', 'ליטר', 'מ"ל', 'אריזה', 'צרור'];
-const PRESET_COLORS = ['#5C8A6B', '#2196F3', '#F44336', '#FF9800', '#9C27B0', '#00BCD4', '#FF5722', '#795548'];
+const PRESET_COLORS = [Colors.brand, '#2196F3', Colors.danger, '#FF9800', '#9C27B0', '#00BCD4', '#FF5722', '#795548'];
 
 export function AddItemBar() {
   const [name, setName] = useState('');
@@ -193,7 +194,7 @@ export function AddItemBar() {
             onPress={() => { setShowDeptPicker(false); setShowNewDeptModal(true); }}
           >
             <Text style={styles.deptOptionIcon}>➕</Text>
-            <Text style={[styles.deptOptionName, { color: '#5C8A6B' }]}>קטגוריה{'\n'}חדשה</Text>
+            <Text style={[styles.deptOptionName, { color: Colors.brand }]}>קטגוריה{'\n'}חדשה</Text>
           </TouchableOpacity>
         </ScrollView>
       )}
@@ -346,11 +347,11 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     paddingHorizontal: 16,
     fontSize: 16,
-    backgroundColor: '#fafafa',
-    color: '#1a1a1a',
+    backgroundColor: Colors.inputBg,
+    color: Colors.textPrimary,
   },
   addBtn: {
-    backgroundColor: '#5C8A6B',
+    backgroundColor: Colors.brand,
     borderRadius: 22,
     paddingHorizontal: 18,
     paddingVertical: 11,
@@ -369,21 +370,21 @@ const styles = StyleSheet.create({
   qtyGroup: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   qtyBtn: {
     width: 32, height: 32, borderRadius: 16,
-    backgroundColor: '#f0f0f0', justifyContent: 'center', alignItems: 'center',
+    backgroundColor: Colors.controlBg, justifyContent: 'center', alignItems: 'center',
   },
   qtyBtnText: { fontSize: 18, fontWeight: '600', color: '#333' },
-  qtyValue: { fontSize: 16, fontWeight: '700', color: '#1a1a1a', minWidth: 22, textAlign: 'center' },
+  qtyValue: { fontSize: 16, fontWeight: '700', color: Colors.textPrimary, minWidth: 22, textAlign: 'center' },
   unitBtn: {
     paddingHorizontal: 10, paddingVertical: 5,
-    borderRadius: 10, backgroundColor: '#f0f0f0',
+    borderRadius: 10, backgroundColor: Colors.controlBg,
     borderWidth: 1, borderColor: '#e0e0e0',
   },
-  unitBtnText: { fontSize: 13, fontWeight: '600', color: '#555' },
+  unitBtnText: { fontSize: 13, fontWeight: '600', color: Colors.textSecondary },
   priceGroup: { flexDirection: 'row', alignItems: 'center', gap: 3 },
-  priceSymbol: { fontSize: 13, color: '#555', fontWeight: '600' },
+  priceSymbol: { fontSize: 13, color: Colors.textSecondary, fontWeight: '600' },
   priceInput: {
     width: 60, height: 32, borderWidth: 1, borderColor: '#e0e0e0',
-    borderRadius: 8, fontSize: 13, backgroundColor: '#fafafa', color: '#1a1a1a',
+    borderRadius: 8, fontSize: 13, backgroundColor: Colors.inputBg, color: Colors.textPrimary,
   },
   deptChip: {
     flex: 1, flexDirection: 'row', alignItems: 'center', gap: 5,
@@ -398,17 +399,17 @@ const styles = StyleSheet.create({
   deptOption: {
     alignItems: 'center', paddingHorizontal: 10, paddingVertical: 6,
     borderRadius: 10, borderWidth: 1, borderColor: '#eee',
-    backgroundColor: '#fafafa', minWidth: 62,
+    backgroundColor: Colors.inputBg, minWidth: 62,
   },
-  newDeptBtn: { borderStyle: 'dashed', borderColor: '#5C8A6B', backgroundColor: '#f0fdf4' },
+  newDeptBtn: { borderStyle: 'dashed', borderColor: Colors.brand, backgroundColor: '#f0fdf4' },
   deptOptionIcon: { fontSize: 20 },
-  deptOptionName: { fontSize: 9, color: '#555', marginTop: 2, textAlign: 'center' },
+  deptOptionName: { fontSize: 9, color: Colors.textSecondary, marginTop: 2, textAlign: 'center' },
 
   // Autocomplete
   suggestionsBox: {
     backgroundColor: '#fff',
     borderTopWidth: 1,
-    borderTopColor: '#f0f0f0',
+    borderTopColor: Colors.controlBg,
     maxHeight: 200,
   },
   suggestionItem: {
@@ -417,28 +418,28 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#f5f5f5',
   },
-  suggestionText: { fontSize: 15, color: '#1a1a1a', textAlign: 'right' },
+  suggestionText: { fontSize: 15, color: Colors.textPrimary, textAlign: 'right' },
 
-  voiceError: { color: '#F44336', fontSize: 11, textAlign: 'center', paddingVertical: 4 },
+  voiceError: { color: Colors.danger, fontSize: 11, textAlign: 'center', paddingVertical: 4 },
 
   // New dept modal
   modalOverlay: {
-    flex: 1, backgroundColor: 'rgba(0,0,0,0.55)',
+    flex: 1, backgroundColor: Colors.overlay,
     justifyContent: 'center', alignItems: 'center',
   },
   newDeptCard: {
     backgroundColor: '#fff', borderRadius: 20, padding: 24, width: '88%', gap: 16,
   },
-  newDeptTitle: { fontSize: 18, fontWeight: '700', textAlign: 'center', color: '#1a1a1a' },
+  newDeptTitle: { fontSize: 18, fontWeight: '700', textAlign: 'center', color: Colors.textPrimary },
   newDeptRow: { flexDirection: 'row', gap: 10, alignItems: 'center' },
   iconInput: {
     width: 56, height: 56, borderWidth: 1.5, borderColor: '#ddd',
-    borderRadius: 14, fontSize: 26, backgroundColor: '#fafafa',
+    borderRadius: 14, fontSize: 26, backgroundColor: Colors.inputBg,
     justifyContent: 'center', textAlignVertical: 'center',
   },
   nameInputField: {
     height: 46, borderWidth: 1.5, borderColor: '#ddd', borderRadius: 12,
-    paddingHorizontal: 14, fontSize: 16, backgroundColor: '#fafafa',
+    paddingHorizontal: 14, fontSize: 16, backgroundColor: Colors.inputBg,
   },
   colorRow: {
     flexDirection: 'row', gap: 10, justifyContent: 'center', flexWrap: 'wrap',
@@ -450,7 +451,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.3, shadowRadius: 2,
   },
   createBtn: {
-    backgroundColor: '#5C8A6B', borderRadius: 14,
+    backgroundColor: Colors.brand, borderRadius: 14,
     paddingVertical: 13, alignItems: 'center',
   },
   createBtnText: { color: '#fff', fontWeight: '700', fontSize: 16 },

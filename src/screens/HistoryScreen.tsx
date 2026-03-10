@@ -5,6 +5,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { useStore } from '../store/useStore';
 import { ShoppingList } from '../types';
+import { Colors } from '../theme/colors';
 
 interface MonthSection {
   title: string;
@@ -214,10 +215,10 @@ const styles = StyleSheet.create({
   },
   cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   cardLeft: { gap: 2, flex: 1 },
-  cardDate: { fontSize: 15, fontWeight: '600', color: '#1a1a1a' },
+  cardDate: { fontSize: 15, fontWeight: '600', color: Colors.textPrimary },
   cardSuper: { fontSize: 13, color: '#8A7BC4' },
   cardRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  totalAmount: { fontSize: 16, fontWeight: '700', color: '#5C8A6B' },
+  totalAmount: { fontSize: 16, fontWeight: '700', color: Colors.brand },
   itemCount: { fontSize: 13, color: '#aaa' },
   receiptIcon: { fontSize: 16 },
   chevron: { color: '#bbb', fontSize: 12 },
@@ -228,18 +229,18 @@ const styles = StyleSheet.create({
     borderWidth: 1, borderColor: '#e0e0e0',
   },
   itemsList: {
-    borderTopWidth: 1, borderTopColor: '#f0f0f0', paddingTop: 10, gap: 4,
+    borderTopWidth: 1, borderTopColor: Colors.controlBg, paddingTop: 10, gap: 4,
   },
   itemsHeader: { fontSize: 13, fontWeight: '700', color: '#888', marginBottom: 4 },
   itemRow: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 2 },
   itemName: { flex: 1, fontSize: 14, color: '#333' },
   itemDetail: { fontSize: 13, color: '#aaa' },
-  itemPrice: { fontSize: 13, fontWeight: '600', color: '#5C8A6B' },
+  itemPrice: { fontSize: 13, fontWeight: '600', color: Colors.brand },
   totalRow: {
     flexDirection: 'row', justifyContent: 'space-between',
-    borderTopWidth: 1, borderTopColor: '#f0f0f0', paddingTop: 10,
+    borderTopWidth: 1, borderTopColor: Colors.controlBg, paddingTop: 10,
   },
-  totalLabel: { fontSize: 14, fontWeight: '700', color: '#555' },
-  totalValue: { fontSize: 15, fontWeight: '800', color: '#5C8A6B' },
+  totalLabel: { fontSize: 14, fontWeight: '700', color: Colors.textSecondary },
+  totalValue: { fontSize: 15, fontWeight: '800', color: Colors.brand },
   noTotal: { fontSize: 13, color: '#bbb', fontStyle: 'italic', textAlign: 'center', paddingTop: 6 },
 });

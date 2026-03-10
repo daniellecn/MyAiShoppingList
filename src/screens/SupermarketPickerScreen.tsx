@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useStore } from '../store/useStore';
+import { Colors } from '../theme/colors';
 
 export function SupermarketPickerScreen() {
   const navigation = useNavigation<any>();
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
   },
   cardSelected: { borderColor: '#C4865A', backgroundColor: '#FDF5EE' },
   cardLeft: { flex: 1, gap: 3 },
-  cardName: { fontSize: 18, fontWeight: '600', color: '#1a1a1a' },
+  cardName: { fontSize: 18, fontWeight: '600', color: Colors.textPrimary },
   discountLabel: { fontSize: 12, color: '#C4865A', fontWeight: '600' },
   checkmark: { color: '#C4865A', fontSize: 22, fontWeight: '700' },
 });

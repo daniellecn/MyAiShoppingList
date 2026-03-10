@@ -9,6 +9,7 @@ import { ItemCard } from '../components/ItemCard';
 import { AddItemBar } from '../components/AddItemBar';
 import { getAllDepartments } from '../data/departments';
 import { Item } from '../types';
+import { Colors } from '../theme/colors';
 
 interface ListSection {
   title: string;
@@ -253,7 +254,7 @@ export function HomeScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f0f4f8' },
   header: {
-    backgroundColor: '#5C8A6B',
+    backgroundColor: Colors.brand,
     paddingHorizontal: 20,
     paddingTop: 56,
     paddingBottom: 16,
@@ -285,9 +286,9 @@ const styles = StyleSheet.create({
   },
   syncBannerOwner: { backgroundColor: '#E8F5E9' },
   syncBannerMember: { backgroundColor: '#E3F2FD' },
-  syncDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: '#5C8A6B' },
+  syncDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: Colors.brand },
   syncText: { flex: 1, fontSize: 13, fontWeight: '600', color: '#2E7D32' },
-  syncChevron: { fontSize: 18, color: '#5C8A6B', fontWeight: '700' },
+  syncChevron: { fontSize: 18, color: Colors.brand, fontWeight: '700' },
 
   actionRow: {
     flexDirection: 'row',
@@ -309,7 +310,7 @@ const styles = StyleSheet.create({
   suggestBtnText: { color: '#fff', fontSize: 14, fontWeight: '700' },
   goShoppingBtn: {
     flex: 1,
-    backgroundColor: '#5C8A6B',
+    backgroundColor: Colors.brand,
     borderRadius: 14,
     paddingVertical: 13,
     alignItems: 'center',
@@ -363,7 +364,7 @@ const styles = StyleSheet.create({
   deptModalCard: {
     backgroundColor: '#fff', borderRadius: 20, padding: 20, width: '85%', maxHeight: '70%',
   },
-  deptModalTitle: { fontSize: 18, fontWeight: '700', textAlign: 'center', marginBottom: 4, color: '#1a1a1a' },
+  deptModalTitle: { fontSize: 18, fontWeight: '700', textAlign: 'center', marginBottom: 4, color: Colors.textPrimary },
   deptModalItem: { fontSize: 14, color: '#666', textAlign: 'center', marginBottom: 12 },
   deptModalList: { maxHeight: 400 },
   deptModalRow: {

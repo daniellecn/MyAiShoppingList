@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Item, Discount } from '../types';
 import { DepartmentBadge } from './DepartmentBadge';
 import { useStore } from '../store/useStore';
+import { Colors } from '../theme/colors';
 
 interface Props {
   item: Item;
@@ -106,17 +107,17 @@ const styles = StyleSheet.create({
   checkArea: { padding: 4 },
   checkbox: {
     width: 24, height: 24, borderRadius: 12,
-    borderWidth: 2, borderColor: '#5C8A6B',
+    borderWidth: 2, borderColor: Colors.brand,
     justifyContent: 'center', alignItems: 'center',
   },
-  checkboxChecked: { backgroundColor: '#5C8A6B' },
+  checkboxChecked: { backgroundColor: Colors.brand },
   checkmark: { color: '#fff', fontWeight: 'bold', fontSize: 14 },
   body: { flex: 1, gap: 2 },
   nameRow: { flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' },
-  name: { fontSize: 16, fontWeight: '500', color: '#1a1a1a', writingDirection: 'rtl' },
+  name: { fontSize: 16, fontWeight: '500', color: Colors.textPrimary, writingDirection: 'rtl' },
   nameStrike: { textDecorationLine: 'line-through', color: '#888' },
   discountBadge: {
-    backgroundColor: '#C4655A',
+    backgroundColor: Colors.discount,
     paddingHorizontal: 6, paddingVertical: 2,
     borderRadius: 8,
   },
@@ -125,16 +126,16 @@ const styles = StyleSheet.create({
   qtyRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   qtyBtn: {
     width: 28, height: 28, borderRadius: 14,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: Colors.controlBg,
     justifyContent: 'center', alignItems: 'center',
   },
   qtyBtnText: { fontSize: 16, fontWeight: '600', color: '#333' },
-  qty: { fontSize: 13, color: '#555', minWidth: 36, textAlign: 'center' },
+  qty: { fontSize: 13, color: Colors.textSecondary, minWidth: 36, textAlign: 'center' },
   discountToggle: {
     width: 30, height: 30, borderRadius: 15,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: Colors.controlBg,
     justifyContent: 'center', alignItems: 'center',
   },
-  discountToggleActive: { backgroundColor: '#fef3e2', borderWidth: 1.5, borderColor: '#C4865A' },
+  discountToggleActive: { backgroundColor: '#fef3e2', borderWidth: 1.5, borderColor: Colors.discount },
   discountToggleText: { fontSize: 14 },
 });

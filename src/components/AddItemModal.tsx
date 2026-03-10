@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity, StyleSheet,
   Modal, Alert, ScrollView, KeyboardAvoidingView, Platform,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useStore } from '../store/useStore';
-import { DEFAULT_DEPARTMENTS } from '../data/departments';
+import { getAllDepartments } from '../data/departments';
 import { guessDepartment } from '../data/itemDepartmentMap';
 import { findDuplicate } from '../utils/duplicateCheck';
 import { parseVoiceInput } from '../utils/voiceParse';
@@ -12,6 +13,7 @@ import { useVoiceInput } from '../hooks/useVoiceInput';
 import { VoiceButton } from './VoiceButton';
 import { DepartmentBadge } from './DepartmentBadge';
 import { Unit } from '../types';
+import { Colors } from '../theme/colors';
 
 const UNITS: Unit[] = ['יח', 'ק"ג', 'גרם', 'ליטר', 'מ"ל', 'אריזה', 'צרור'];
 
@@ -27,11 +29,16 @@ export function AddItemModal({ visible, onClose }: Props) {
   const [departmentId, setDepartmentId] = useState('other');
   const [showDeptPicker, setShowDeptPicker] = useState(false);
 
+  const insets = useSafeAreaInsets();
+
   const addItem = useStore(s => s.addItem);
   const updateItemQuantity = useStore(s => s.updateItemQuantity);
   const currentList = useStore(s => s.currentList);
   const itemDepartmentOverrides = useStore(s => s.itemDepartmentOverrides);
   const setItemDepartmentOverride = useStore(s => s.setItemDepartmentOverride);
+  const customDepartments = useStore(s => s.customDepartments);
+
+  const allDepartments = useMemo(() => getAllDepartments(customDepartments), [customDepartments]);
 
   const handleVoiceResult = useCallback((text: string) => {
     const parsed = parseVoiceInput(text);
@@ -111,7 +118,7 @@ export function AddItemModal({ visible, onClose }: Props) {
     <Modal visible={visible} animationType="slide" transparent onRequestClose={handleClose}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.overlay}>
         <TouchableOpacity style={styles.backdrop} onPress={handleClose} />
-        <View style={styles.sheet}>
+        <View style={[styles.sheet, { paddingBottom: Math.max(36, insets.bottom + 16) }]}>
           <View style={styles.handle} />
           <Text style={styles.title}>הוסף פריט</Text>
 
@@ -130,7 +137,7 @@ export function AddItemModal({ visible, onClose }: Props) {
             <VoiceButton
               isListening={isListening}
               onPress={isListening ? stopListening : startListening}
-              size={44}
+              size={40}
             />
           </View>
           {voiceError && <Text style={styles.voiceError}>{voiceError}</Text>}
@@ -146,7 +153,7 @@ export function AddItemModal({ visible, onClose }: Props) {
 
           {showDeptPicker && (
             <ScrollView style={styles.deptPicker} horizontal showsHorizontalScrollIndicator={false}>
-              {DEFAULT_DEPARTMENTS.map(dept => (
+              {allDepartments.map(dept => (
                 <TouchableOpacity
                   key={dept.id}
                   onPress={() => { setDepartmentId(dept.id); setShowDeptPicker(false); }}
@@ -201,42 +208,41 @@ export function AddItemModal({ visible, onClose }: Props) {
 
 const styles = StyleSheet.create({
   overlay: { flex: 1, justifyContent: 'flex-end' },
-  backdrop: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.4)' },
+  backdrop: { ...StyleSheet.absoluteFillObject, backgroundColor: Colors.overlay },
   sheet: {
     backgroundColor: '#fff',
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     padding: 20,
-    paddingBottom: 36,
     gap: 14,
   },
   handle: {
     width: 40, height: 4, borderRadius: 2,
     backgroundColor: '#ddd', alignSelf: 'center', marginBottom: 4,
   },
-  title: { fontSize: 20, fontWeight: '700', textAlign: 'center', color: '#1a1a1a' },
+  title: { fontSize: 20, fontWeight: '700', textAlign: 'center', color: Colors.textPrimary },
   nameRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   input: {
     flex: 1, borderWidth: 1, borderColor: '#ddd', borderRadius: 12,
     paddingHorizontal: 14, paddingVertical: 10,
-    fontSize: 17, backgroundColor: '#fafafa',
+    fontSize: 17, backgroundColor: Colors.inputBg,
   },
-  voiceError: { color: '#F44336', fontSize: 12, textAlign: 'center' },
+  voiceError: { color: Colors.danger, fontSize: 12, textAlign: 'center' },
   deptRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  label: { fontSize: 14, color: '#555', fontWeight: '500' },
+  label: { fontSize: 14, color: Colors.textSecondary, fontWeight: '500' },
   chevron: { color: '#888', marginLeft: 'auto' },
-  deptPicker: { maxHeight: 80 },
+  deptPicker: { maxHeight: 90 },
   deptOption: {
     alignItems: 'center', paddingHorizontal: 10, paddingVertical: 6,
     marginRight: 8, borderRadius: 10, borderWidth: 1, borderColor: '#eee',
-    backgroundColor: '#fafafa',
+    backgroundColor: Colors.inputBg,
   },
-  deptOptionSelected: { borderColor: '#5C8A6B', backgroundColor: '#edf4f0' },
+  deptOptionSelected: { borderColor: Colors.brand, backgroundColor: '#edf4f0' },
   deptOptionIcon: { fontSize: 20 },
-  deptOptionName: { fontSize: 10, color: '#555', marginTop: 2, textAlign: 'center' },
+  deptOptionName: { fontSize: 10, color: Colors.textSecondary, marginTop: 2, textAlign: 'center' },
   qtyRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   qtyBtn: {
-    width: 36, height: 36, borderRadius: 18, backgroundColor: '#f0f0f0',
+    width: 36, height: 36, borderRadius: 18, backgroundColor: Colors.controlBg,
     justifyContent: 'center', alignItems: 'center',
   },
   qtyBtnText: { fontSize: 20, fontWeight: '600', color: '#333' },
@@ -247,13 +253,13 @@ const styles = StyleSheet.create({
   unitScroll: { flex: 1 },
   unitChip: {
     paddingHorizontal: 10, paddingVertical: 5, borderRadius: 8,
-    borderWidth: 1, borderColor: '#ddd', marginRight: 6, backgroundColor: '#fafafa',
+    borderWidth: 1, borderColor: '#ddd', marginRight: 6, backgroundColor: Colors.inputBg,
   },
-  unitChipSelected: { borderColor: '#5C8A6B', backgroundColor: '#edf4f0' },
-  unitText: { fontSize: 13, color: '#555' },
-  unitTextSelected: { color: '#2e7d32', fontWeight: '600' },
+  unitChipSelected: { borderColor: Colors.brand, backgroundColor: '#edf4f0' },
+  unitText: { fontSize: 13, color: Colors.textSecondary },
+  unitTextSelected: { color: Colors.brand, fontWeight: '600' },
   addBtn: {
-    backgroundColor: '#5C8A6B', borderRadius: 14, paddingVertical: 14,
+    backgroundColor: Colors.brand, borderRadius: 14, paddingVertical: 14,
     alignItems: 'center', marginTop: 4,
   },
   addBtnText: { color: '#fff', fontSize: 17, fontWeight: '700' },

@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useStore } from '../store/useStore';
+import { Colors } from '../theme/colors';
 
 export function ManageSupermarketsScreen() {
   const navigation = useNavigation<any>();
@@ -213,12 +214,12 @@ const styles = StyleSheet.create({
   },
   cardRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   cardInfo: { flex: 1, gap: 3 },
-  cardName: { fontSize: 17, fontWeight: '700', color: '#1a1a1a' },
+  cardName: { fontSize: 17, fontWeight: '700', color: Colors.textPrimary },
   cardUrl: { fontSize: 11, color: '#999' },
   cardUrlEmpty: { fontSize: 11, color: '#ccc', fontStyle: 'italic' },
   cardActions: { flexDirection: 'row', gap: 6 },
   editBtn: {
-    width: 38, height: 38, borderRadius: 10, backgroundColor: '#f0f0f0',
+    width: 38, height: 38, borderRadius: 10, backgroundColor: Colors.controlBg,
     justifyContent: 'center', alignItems: 'center',
   },
   editBtnText: { fontSize: 16 },
@@ -231,19 +232,19 @@ const styles = StyleSheet.create({
   editInput: {
     borderWidth: 1.5, borderColor: '#ddd', borderRadius: 10,
     paddingHorizontal: 12, paddingVertical: 10,
-    fontSize: 15, backgroundColor: '#fafafa',
+    fontSize: 15, backgroundColor: Colors.inputBg,
   },
   editActions: { flexDirection: 'row', gap: 10 },
   saveBtn: {
-    flex: 1, backgroundColor: '#5C8A6B', borderRadius: 10,
+    flex: 1, backgroundColor: Colors.brand, borderRadius: 10,
     paddingVertical: 10, alignItems: 'center',
   },
   saveBtnText: { color: '#fff', fontWeight: '700', fontSize: 15 },
   cancelEditBtn: {
-    flex: 1, backgroundColor: '#f0f0f0', borderRadius: 10,
+    flex: 1, backgroundColor: Colors.controlBg, borderRadius: 10,
     paddingVertical: 10, alignItems: 'center',
   },
-  cancelEditText: { color: '#555', fontWeight: '600', fontSize: 15 },
+  cancelEditText: { color: Colors.textSecondary, fontWeight: '600', fontSize: 15 },
   addBtn: {
     marginTop: 8, backgroundColor: '#fff',
     borderRadius: 14, paddingVertical: 16, alignItems: 'center',
@@ -260,11 +261,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff', borderTopLeftRadius: 24, borderTopRightRadius: 24,
     padding: 24, gap: 14,
   },
-  modalTitle: { fontSize: 20, fontWeight: '800', textAlign: 'center', color: '#1a1a1a' },
+  modalTitle: { fontSize: 20, fontWeight: '800', textAlign: 'center', color: Colors.textPrimary },
   modalInput: {
     borderWidth: 1.5, borderColor: '#ddd', borderRadius: 12,
     paddingHorizontal: 14, paddingVertical: 11,
-    fontSize: 15, backgroundColor: '#fafafa',
+    fontSize: 15, backgroundColor: Colors.inputBg,
   },
   urlHint: { fontSize: 12, color: '#999', textAlign: 'right', lineHeight: 18 },
   modalActions: { flexDirection: 'row', gap: 10 },
@@ -275,8 +276,8 @@ const styles = StyleSheet.create({
   btnDisabled: { backgroundColor: '#ccc' },
   modalAddBtnText: { color: '#fff', fontWeight: '700', fontSize: 16 },
   modalCancelBtn: {
-    flex: 1, backgroundColor: '#f0f0f0',
+    flex: 1, backgroundColor: Colors.controlBg,
     borderRadius: 12, paddingVertical: 14, alignItems: 'center',
   },
-  modalCancelText: { color: '#555', fontWeight: '600', fontSize: 16 },
+  modalCancelText: { color: Colors.textSecondary, fontWeight: '600', fontSize: 16 },
 });

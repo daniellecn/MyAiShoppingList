@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useStore } from '../store/useStore';
 import { createRoom, deleteRoom, roomExists } from '../services/listSync';
 import { isFirebaseConfigured } from '../services/firebase';
+import { Colors } from '../theme/colors';
 
 export function CollabScreen() {
   const navigation = useNavigation<any>();
@@ -215,7 +216,7 @@ export function CollabScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f0f4f8' },
   header: {
-    backgroundColor: '#5C8A6B',
+    backgroundColor: Colors.brand,
     paddingTop: 56, paddingBottom: 16, paddingHorizontal: 20,
     flexDirection: 'row', alignItems: 'center', gap: 12,
   },
@@ -238,15 +239,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row', alignItems: 'center', gap: 12,
     borderRadius: 14, padding: 14,
   },
-  ownerBanner: { backgroundColor: '#E8F5E9', borderWidth: 1, borderColor: '#5C8A6B' },
+  ownerBanner: { backgroundColor: '#E8F5E9', borderWidth: 1, borderColor: Colors.brand },
   memberBanner: { backgroundColor: '#E3F2FD', borderWidth: 1, borderColor: '#7BA8C4' },
   activeIcon: { fontSize: 28 },
   activeInfo: { flex: 1 },
-  activeLabel: { fontSize: 14, fontWeight: '700', color: '#1a1a1a' },
-  activeCode: { fontSize: 16, fontWeight: '800', color: '#5C8A6B', letterSpacing: 2, marginTop: 2 },
+  activeLabel: { fontSize: 14, fontWeight: '700', color: Colors.textPrimary },
+  activeCode: { fontSize: 16, fontWeight: '800', color: Colors.brand, letterSpacing: 2, marginTop: 2 },
   syncDot: {
     width: 10, height: 10, borderRadius: 5,
-    backgroundColor: '#5C8A6B',
+    backgroundColor: Colors.brand,
   },
 
   card: {
@@ -254,18 +255,18 @@ const styles = StyleSheet.create({
     elevation: 1, shadowColor: '#000', shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.07, shadowRadius: 3,
   },
-  cardTitle: { fontSize: 16, fontWeight: '700', color: '#1a1a1a' },
+  cardTitle: { fontSize: 16, fontWeight: '700', color: Colors.textPrimary },
   cardDesc: { fontSize: 13, color: '#666', lineHeight: 19 },
 
   codeBox: { gap: 10, alignItems: 'center' },
   codeLabel: { fontSize: 12, color: '#888', fontWeight: '500' },
   codeText: {
-    fontSize: 36, fontWeight: '800', color: '#5C8A6B',
+    fontSize: 36, fontWeight: '800', color: Colors.brand,
     letterSpacing: 6, paddingVertical: 8,
   },
   codeActions: { flexDirection: 'row', gap: 10 },
   codeBtn: {
-    flex: 1, backgroundColor: '#5C8A6B', borderRadius: 10,
+    flex: 1, backgroundColor: Colors.brand, borderRadius: 10,
     paddingVertical: 10, alignItems: 'center',
   },
   copyBtn: { backgroundColor: '#7BA8C4' },
@@ -274,7 +275,7 @@ const styles = StyleSheet.create({
   actionBtn: {
     borderRadius: 12, paddingVertical: 14, alignItems: 'center',
   },
-  startBtn: { backgroundColor: '#5C8A6B' },
+  startBtn: { backgroundColor: Colors.brand },
   btnDisabled: { backgroundColor: '#ccc' },
   actionBtnText: { color: '#fff', fontWeight: '700', fontSize: 16 },
 
@@ -288,7 +289,7 @@ const styles = StyleSheet.create({
   codeInput: {
     flex: 1, height: 46, borderWidth: 1.5, borderColor: '#ddd',
     borderRadius: 12, fontSize: 18, fontWeight: '700',
-    letterSpacing: 3, color: '#1a1a1a', backgroundColor: '#fafafa',
+    letterSpacing: 3, color: Colors.textPrimary, backgroundColor: Colors.inputBg,
   },
   joinBtn: {
     backgroundColor: '#7BA8C4', borderRadius: 12,

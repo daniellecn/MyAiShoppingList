@@ -7,6 +7,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useStore } from '../store/useStore';
 import { recognizeReceiptItems } from '../utils/receiptOcr';
 import type { OcrItem } from '../utils/receiptOcr';
+import { Colors } from '../theme/colors';
 
 type OcrState = 'idle' | 'scanning' | 'done' | 'error';
 
@@ -138,7 +139,7 @@ export function ReceiptScreen() {
           {/* OCR status */}
           {ocrState === 'scanning' && (
             <View style={styles.ocrLoading}>
-              <ActivityIndicator color="#5C8A6B" />
+              <ActivityIndicator color={Colors.brand} />
               <Text style={styles.ocrLoadingText}>מזהה פריטים מהקבלה...</Text>
             </View>
           )}
@@ -190,7 +191,7 @@ export function ReceiptScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f0f4f8' },
   header: {
-    backgroundColor: '#5C8A6B',
+    backgroundColor: Colors.brand,
     paddingHorizontal: 20,
     paddingTop: 56,
     paddingBottom: 20,
@@ -206,7 +207,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.08, shadowRadius: 3,
     gap: 10,
   },
-  cardTitle: { fontSize: 16, fontWeight: '700', color: '#1a1a1a' },
+  cardTitle: { fontSize: 16, fontWeight: '700', color: Colors.textPrimary },
   cardHint: { fontSize: 12, color: '#aaa' },
   itemRow: {
     flexDirection: 'row', alignItems: 'center', gap: 8,
@@ -215,7 +216,7 @@ const styles = StyleSheet.create({
   },
   itemName: { flex: 1, fontSize: 14, color: '#333' },
   itemQty: { fontSize: 13, color: '#888' },
-  itemPrice: { fontSize: 13, fontWeight: '600', color: '#5C8A6B' },
+  itemPrice: { fontSize: 13, fontWeight: '600', color: Colors.brand },
   photoButtons: { flexDirection: 'row', gap: 12 },
   photoBtn: {
     flex: 1, backgroundColor: '#f0f4f8', borderRadius: 14,
@@ -231,14 +232,14 @@ const styles = StyleSheet.create({
   },
   retakeBtnText: { fontSize: 13, color: '#555', fontWeight: '600' },
   ocrLoading: { flexDirection: 'row', alignItems: 'center', gap: 10, paddingVertical: 4 },
-  ocrLoadingText: { fontSize: 13, color: '#5C8A6B', fontWeight: '600' },
+  ocrLoadingText: { fontSize: 13, color: Colors.brand, fontWeight: '600' },
   ocrError: { gap: 4 },
   ocrErrorText: { fontSize: 13, color: '#C4655A' },
-  retryText: { fontSize: 13, color: '#5C8A6B', fontWeight: '700' },
+  retryText: { fontSize: 13, color: Colors.brand, fontWeight: '700' },
   ocrHint: { fontSize: 12, color: '#aaa', fontStyle: 'italic' },
   footer: { padding: 16, gap: 10 },
   saveBtn: {
-    backgroundColor: '#5C8A6B', borderRadius: 14,
+    backgroundColor: Colors.brand, borderRadius: 14,
     paddingVertical: 15, alignItems: 'center',
   },
   saveBtnText: { color: '#fff', fontSize: 16, fontWeight: '700' },

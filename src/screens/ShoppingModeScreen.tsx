@@ -9,6 +9,7 @@ import { ItemCard } from '../components/ItemCard';
 import { DEFAULT_DEPARTMENTS, getAllDepartments } from '../data/departments';
 import { fetchDiscountsForSupermarket, matchDiscountsToItem } from '../utils/discountFetch';
 import { Department, Item } from '../types';
+import { Colors } from '../theme/colors';
 
 interface DeptSection {
   id: string;
@@ -248,13 +249,13 @@ const styles = StyleSheet.create({
   },
   toolbarBtn: {
     flex: 1, paddingVertical: 8, borderRadius: 8,
-    backgroundColor: '#f0f0f0', alignItems: 'center',
+    backgroundColor: Colors.controlBg, alignItems: 'center',
   },
   toolbarBtnActive: { backgroundColor: '#e8f5e9' },
   toolbarBtnText: { fontSize: 13, fontWeight: '600', color: '#333' },
   finishBtn: {
     flex: 1, paddingVertical: 8, borderRadius: 8,
-    backgroundColor: '#5C8A6B', alignItems: 'center',
+    backgroundColor: Colors.brand, alignItems: 'center',
   },
   finishBtnText: { fontSize: 13, fontWeight: '700', color: '#fff' },
   list: { paddingHorizontal: 12, paddingBottom: 40 },
@@ -281,6 +282,6 @@ const styles = StyleSheet.create({
   },
   deptRowActive: { elevation: 8, shadowOpacity: 0.2 },
   deptIcon: { fontSize: 20 },
-  deptName: { flex: 1, fontSize: 15, fontWeight: '500', color: '#1a1a1a' },
+  deptName: { flex: 1, fontSize: 15, fontWeight: '500', color: Colors.textPrimary },
   dragHandle: { fontSize: 20, color: '#ccc' },
 });

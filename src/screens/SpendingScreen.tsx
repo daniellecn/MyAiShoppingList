@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { useStore } from '../store/useStore';
 import { ShoppingList } from '../types';
+import { Colors } from '../theme/colors';
 
 interface MonthGroup {
   label: string;
@@ -134,14 +135,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1, borderBottomColor: '#f0f4f8',
   },
   tripLeft: { gap: 2 },
-  tripDate: { fontSize: 14, fontWeight: '600', color: '#1a1a1a' },
+  tripDate: { fontSize: 14, fontWeight: '600', color: Colors.textPrimary },
   tripSupermarket: { fontSize: 12, color: '#888' },
   tripRight: { alignItems: 'flex-end', gap: 2 },
   tripItems: { fontSize: 12, color: '#aaa' },
-  tripAmount: { fontSize: 15, fontWeight: '700', color: '#5C8A6B' },
+  tripAmount: { fontSize: 15, fontWeight: '700', color: Colors.brand },
   tripNoAmount: { fontSize: 12, color: '#bbb', fontStyle: 'italic' },
   empty: { flex: 1, justifyContent: 'center', alignItems: 'center', gap: 8 },
   emptyIcon: { fontSize: 64 },
-  emptyText: { fontSize: 20, fontWeight: '600', color: '#555' },
+  emptyText: { fontSize: 20, fontWeight: '600', color: Colors.textSecondary },
   emptySubtext: { fontSize: 14, color: '#888', textAlign: 'center', paddingHorizontal: 40 },
 });

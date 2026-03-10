@@ -9,6 +9,7 @@ import { useStore } from '../store/useStore';
 import { guessDepartment } from '../data/itemDepartmentMap';
 import { recognizeReceiptItems } from '../utils/receiptOcr';
 import type { OcrItem } from '../utils/receiptOcr';
+import { Colors } from '../theme/colors';
 
 type OcrState = 'idle' | 'scanning' | 'done' | 'error';
 
@@ -489,7 +490,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.08, shadowRadius: 3,
     gap: 10,
   },
-  cardTitle: { fontSize: 15, fontWeight: '700', color: '#1a1a1a' },
+  cardTitle: { fontSize: 15, fontWeight: '700', color: Colors.textPrimary },
   cardTitleRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   cardHint: { fontSize: 12, color: '#aaa' },
   selectAllBtn: { fontSize: 13, color: '#8A7BC4', fontWeight: '700' },
@@ -503,7 +504,7 @@ const styles = StyleSheet.create({
   dateInput: {
     borderWidth: 1.5, borderColor: '#e0e0e0', borderRadius: 10,
     paddingHorizontal: 12, paddingVertical: 10,
-    fontSize: 15, color: '#333', backgroundColor: '#fafafa',
+    fontSize: 15, color: '#333', backgroundColor: Colors.inputBg,
   },
 
   photoButtons: { flexDirection: 'row', gap: 10 },
@@ -539,12 +540,12 @@ const styles = StyleSheet.create({
     borderWidth: 2, borderColor: '#c8d8e0',
     justifyContent: 'center', alignItems: 'center',
   },
-  itemCheckOn: { backgroundColor: '#5C8A6B', borderColor: '#5C8A6B' },
+  itemCheckOn: { backgroundColor: Colors.brand, borderColor: Colors.brand },
   itemCheckMark: { color: '#fff', fontSize: 12, fontWeight: '700' },
   itemName: { flex: 1, fontSize: 15, color: '#333' },
-  itemNameBought: { color: '#5C8A6B', fontWeight: '600' },
+  itemNameBought: { color: Colors.brand, fontWeight: '600' },
   itemQty: { fontSize: 12, color: '#aaa' },
-  itemPrice: { fontSize: 13, fontWeight: '600', color: '#5C8A6B' },
+  itemPrice: { fontSize: 13, fontWeight: '600', color: Colors.brand },
   newBadge: {
     fontSize: 10, color: '#7BA8C4', fontWeight: '700',
     borderWidth: 1, borderColor: '#7BA8C4', borderRadius: 6,
@@ -555,10 +556,10 @@ const styles = StyleSheet.create({
   addInput: {
     flex: 1, height: 42, borderWidth: 1.5, borderColor: '#e0e0e0',
     borderRadius: 10, paddingHorizontal: 12, fontSize: 15,
-    backgroundColor: '#fafafa', color: '#1a1a1a',
+    backgroundColor: Colors.inputBg, color: Colors.textPrimary,
   },
   addBtn: {
-    backgroundColor: '#5C8A6B', borderRadius: 10,
+    backgroundColor: Colors.brand, borderRadius: 10,
     paddingHorizontal: 16, justifyContent: 'center',
   },
   addBtnDisabled: { backgroundColor: '#ccc' },
@@ -566,7 +567,7 @@ const styles = StyleSheet.create({
 
   footer: { padding: 16, gap: 8, backgroundColor: '#fff', borderTopWidth: 1, borderTopColor: '#eee' },
   saveBtn: {
-    backgroundColor: '#5C8A6B', borderRadius: 14,
+    backgroundColor: Colors.brand, borderRadius: 14,
     paddingVertical: 15, alignItems: 'center',
   },
   saveBtnDisabled: { backgroundColor: '#ccc' },

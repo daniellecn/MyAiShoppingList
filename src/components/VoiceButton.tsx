@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { TouchableOpacity, StyleSheet, Animated, Text } from 'react-native';
+import { Colors } from '../theme/colors';
 
 interface Props {
   isListening: boolean;
@@ -7,7 +8,7 @@ interface Props {
   size?: number;
 }
 
-export function VoiceButton({ isListening, onPress, size = 48 }: Props) {
+export function VoiceButton({ isListening, onPress, size = 40 }: Props) {
   const pulse = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export function VoiceButton({ isListening, onPress, size = 48 }: Props) {
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: '#5C8A6B',
+    backgroundColor: Colors.brand,
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 3,
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   listening: {
-    backgroundColor: '#F44336',
+    backgroundColor: Colors.danger,
   },
   icon: { textAlign: 'center' },
 });
