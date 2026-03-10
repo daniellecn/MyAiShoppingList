@@ -15,7 +15,7 @@
  */
 
 import { initializeApp, getApps } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import { initializeFirestore, getFirestore, enableNetwork } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDJoXIZIpyLf9HF3kvsc3N97qblc5y5rq4",
@@ -32,4 +32,17 @@ export const isFirebaseConfigured =
 
 // Initialise once (Expo hot-reload safe)
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-export const db = isFirebaseConfigured ? getFirestore(app) : null;
+
+function createDb() {
+  try {
+    // initializeFirestore must be called before getFirestore; throws on hot-reload
+    return initializeFirestore(app, { experimentalForceLongPolling: true });
+  } catch {
+    return getFirestore(app);
+  }
+}
+
+export const db = isFirebaseConfigured ? createDb() : null;
+
+// Firebase can start in "offline" mode in React Native — force it online
+if (db) enableNetwork(db).catch(() => {});
