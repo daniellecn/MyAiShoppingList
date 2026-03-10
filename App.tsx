@@ -19,6 +19,7 @@ import { ReceiptScreen } from './src/screens/ReceiptScreen';
 import { CollabScreen } from './src/screens/CollabScreen';
 import { ManageSupermarketsScreen } from './src/screens/ManageSupermarketsScreen';
 import { ReceiptUploadScreen } from './src/screens/ReceiptUploadScreen';
+import { ListsScreen } from './src/screens/ListsScreen';
 import { useFirebaseSync } from './src/hooks/useFirebaseSync';
 
 // Force RTL layout for Hebrew
@@ -51,11 +52,19 @@ function HomeTabs() {
         }}
       />
       <Tab.Screen
+        name="Lists"
+        component={ListsScreen}
+        options={{
+          tabBarLabel: 'רשימות',
+          tabBarIcon: () => <Text style={{ fontSize: 22 }}>📋</Text>,
+        }}
+      />
+      <Tab.Screen
         name="History"
         component={HistoryScreen}
         options={{
           tabBarLabel: 'היסטוריה',
-          tabBarIcon: () => <Text style={{ fontSize: 22 }}>📋</Text>,
+          tabBarIcon: () => <Text style={{ fontSize: 22 }}>📜</Text>,
         }}
       />
     </Tab.Navigator>

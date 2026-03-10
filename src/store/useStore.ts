@@ -7,6 +7,15 @@ import { AppState, Item, ShoppingList } from '../types';
 import { DEFAULT_SUPERMARKETS } from '../data/supermarkets';
 import { DEFAULT_DEPARTMENTS } from '../data/departments';
 
+// Helper: update items in a specific list
+const updListItems = (
+  lists: ShoppingList[], id: string, fn: (items: Item[]) => Item[]
+): ShoppingList[] => lists.map(l => l.id === id ? { ...l, items: fn(l.items) } : l);
+
+// Helper: derive currentList from lists + activeListId
+const deriveCurrent = (lists: ShoppingList[], id: string): Item[] =>
+  lists.find(l => l.id === id)?.items ?? [];
+
 export const useStore = create<AppState>()(
   persist(
     (set, get) => ({
@@ -20,40 +29,50 @@ export const useStore = create<AppState>()(
           checked: false,
           addedAt: new Date().toISOString(),
         };
-        set(s => ({ currentList: [...s.currentList, newItem] }));
+        set(s => {
+          const newLists = updListItems(s.lists, s.activeListId, items => [...items, newItem]);
+          return { lists: newLists, currentList: deriveCurrent(newLists, s.activeListId) };
+        });
       },
 
-      removeItem: (id) =>
-        set(s => ({ currentList: s.currentList.filter(i => i.id !== id) })),
+      removeItem: (id) => set(s => {
+        const newLists = updListItems(s.lists, s.activeListId, items => items.filter(i => i.id !== id));
+        return { lists: newLists, currentList: deriveCurrent(newLists, s.activeListId) };
+      }),
 
-      toggleItem: (id) =>
-        set(s => ({
-          currentList: s.currentList.map(i =>
-            i.id === id ? { ...i, checked: !i.checked } : i,
-          ),
-        })),
+      toggleItem: (id) => set(s => {
+        const newLists = updListItems(s.lists, s.activeListId, items =>
+          items.map(i => i.id === id ? { ...i, checked: !i.checked } : i));
+        return { lists: newLists, currentList: deriveCurrent(newLists, s.activeListId) };
+      }),
 
-      updateItemQuantity: (id, quantity) =>
-        set(s => ({
-          currentList: s.currentList.map(i =>
-            i.id === id ? { ...i, quantity } : i,
-          ),
-        })),
+      updateItemQuantity: (id, quantity) => set(s => {
+        const newLists = updListItems(s.lists, s.activeListId, items =>
+          items.map(i => i.id === id ? { ...i, quantity } : i));
+        return { lists: newLists, currentList: deriveCurrent(newLists, s.activeListId) };
+      }),
 
-      updateItemDept: (id, departmentId) =>
-        set(s => ({
-          currentList: s.currentList.map(i =>
-            i.id === id ? { ...i, departmentId } : i,
-          ),
-        })),
+      updateItemDept: (id, departmentId) => set(s => {
+        const newLists = updListItems(s.lists, s.activeListId, items =>
+          items.map(i => i.id === id ? { ...i, departmentId } : i));
+        return { lists: newLists, currentList: deriveCurrent(newLists, s.activeListId) };
+      }),
 
-      clearCheckedItems: () =>
-        set(s => ({ currentList: s.currentList.filter(i => !i.checked) })),
+      clearCheckedItems: () => set(s => {
+        const newLists = updListItems(s.lists, s.activeListId, items => items.filter(i => !i.checked));
+        return { lists: newLists, currentList: deriveCurrent(newLists, s.activeListId) };
+      }),
 
-      clearCurrentList: () => set({ currentList: [] }),
+      clearCurrentList: () => set(s => {
+        const newLists = updListItems(s.lists, s.activeListId, () => []);
+        return { lists: newLists, currentList: [] };
+      }),
 
       // Used by Firebase sync — sets list without triggering re-push
-      setListFromSync: (items) => set({ currentList: items }),
+      setListFromSync: (items) => set(s => {
+        const newLists = updListItems(s.lists, s.activeListId, () => items);
+        return { lists: newLists, currentList: items };
+      }),
 
       // ─── History ─────────────────────────────────────────────────
       history: [],
@@ -95,10 +114,10 @@ export const useStore = create<AppState>()(
           }
         });
 
-        set({
-          history: [list, ...history],
-          purchaseRecords: updatedRecords,
-          currentList: currentList.filter(i => !i.checked),
+        set(s => {
+          const newLists = updListItems(s.lists, s.activeListId, items => items.filter(i => !i.checked));
+          const remaining = deriveCurrent(newLists, s.activeListId);
+          return { history: [list, ...history], purchaseRecords: updatedRecords, lists: newLists, currentList: remaining };
         });
       },
 
@@ -245,13 +264,42 @@ export const useStore = create<AppState>()(
       shareRole: null,
 
       setShareRoom: (code, role) => set({ shareRoomCode: code, shareRole: role }),
+
+      // ─── Multiple lists ───────────────────────────────────────────
+      lists: [],
+      activeListId: '',
+
+      createList: (name) => {
+        const id = uuidv4();
+        set(s => ({
+          lists: [...s.lists, { id, name: name.trim(), items: [], createdAt: new Date().toISOString() }],
+        }));
+        return id;
+      },
+
+      renameList: (id, name) =>
+        set(s => ({ lists: s.lists.map(l => l.id === id ? { ...l, name: name.trim() } : l) })),
+
+      deleteList: (id) => set(s => {
+        if (s.lists.length <= 1) return s;
+        const newLists = s.lists.filter(l => l.id !== id);
+        const newId = s.activeListId === id ? newLists[0].id : s.activeListId;
+        return { lists: newLists, activeListId: newId, currentList: deriveCurrent(newLists, newId) };
+      }),
+
+      switchList: (id) => set(s => {
+        const target = s.lists.find(l => l.id === id);
+        if (!target) return s;
+        return { activeListId: id, currentList: target.items };
+      }),
     }),
     {
       name: 'shopping-list-storage',
       storage: createJSONStorage(() => AsyncStorage),
       // Don't persist ephemeral share state — family re-joins each session
       partialize: (s) => ({
-        currentList: s.currentList,
+        lists: s.lists,
+        activeListId: s.activeListId,
         history: s.history,
         purchaseRecords: s.purchaseRecords,
         supermarkets: s.supermarkets,
@@ -261,6 +309,18 @@ export const useStore = create<AppState>()(
         customDepartments: s.customDepartments,
         anthropicApiKey: s.anthropicApiKey,
       }),
+      onRehydrateStorage: () => (state) => {
+        if (!state) return;
+        if (!state.lists || state.lists.length === 0) {
+          // Migrate from old single-list schema
+          const legacyItems: Item[] = (state as any).currentList ?? [];
+          const id = uuidv4();
+          state.lists = [{ id, name: 'הרשימה שלי', items: legacyItems, createdAt: new Date().toISOString() }];
+          state.activeListId = id;
+        }
+        // Always sync currentList from active list
+        state.currentList = state.lists.find(l => l.id === state.activeListId)?.items ?? [];
+      },
     },
   ),
 );

@@ -108,4 +108,12 @@ export interface AppState {
   shareRole: 'owner' | 'member' | null;
   setShareRoom: (code: string | null, role: 'owner' | 'member' | null) => void;
   setListFromSync: (items: Item[]) => void;
+
+  // Multiple lists
+  lists: ShoppingList[];
+  activeListId: string;
+  createList: (name: string) => string; // returns new list id
+  renameList: (id: string, name: string) => void;
+  deleteList: (id: string) => void;
+  switchList: (id: string) => void;
 }

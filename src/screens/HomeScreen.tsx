@@ -30,6 +30,9 @@ export function HomeScreen() {
   const shareRole = useStore(s => s.shareRole);
   const setItemDepartmentOverride = useStore(s => s.setItemDepartmentOverride);
   const updateItemDept = useStore(s => s.updateItemDept);
+  const lists = useStore(s => s.lists);
+  const activeListId = useStore(s => s.activeListId);
+  const activeListName = lists.find(l => l.id === activeListId)?.name ?? 'הרשימה שלי';
 
   const allDepts = useMemo(() => getAllDepartments(customDepartments), [customDepartments]);
 
@@ -122,7 +125,7 @@ export function HomeScreen() {
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <Text style={styles.title}>🛒 הרשימה שלי</Text>
+          <Text style={styles.title} numberOfLines={1}>🛒 {activeListName}</Text>
           <Text style={styles.subtitle}>{currentList.length} פריטים</Text>
         </View>
         <View style={styles.headerRight}>
