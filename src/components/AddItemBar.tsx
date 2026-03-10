@@ -154,7 +154,7 @@ export function AddItemBar() {
   };
 
   return (
-    <View style={[styles.wrapper, { paddingBottom: insets.bottom }]}>
+    <View style={styles.wrapper}>
       {/* Autocomplete dropdown */}
       {suggestions.length > 0 && (
         <View style={styles.suggestionsBox}>
