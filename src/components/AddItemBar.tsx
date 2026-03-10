@@ -3,6 +3,7 @@ import {
   View, Text, TextInput, TouchableOpacity, StyleSheet,
   ScrollView, Alert, Modal, Pressable, Keyboard,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useStore } from '../store/useStore';
 import { getAllDepartments } from '../data/departments';
 import { guessDepartment, ITEM_DEPARTMENT_MAP } from '../data/itemDepartmentMap';
@@ -17,6 +18,7 @@ const UNITS: Unit[] = ['יח', 'ק"ג', 'גרם', 'ליטר', 'מ"ל', 'אריז
 const PRESET_COLORS = [Colors.brand, '#2196F3', Colors.danger, '#FF9800', '#9C27B0', '#00BCD4', '#FF5722', '#795548'];
 
 export function AddItemBar() {
+  const insets = useSafeAreaInsets();
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [unit, setUnit] = useState<Unit>('יח');
@@ -152,7 +154,7 @@ export function AddItemBar() {
   };
 
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, { paddingBottom: insets.bottom }]}>
       {/* Autocomplete dropdown */}
       {suggestions.length > 0 && (
         <View style={styles.suggestionsBox}>

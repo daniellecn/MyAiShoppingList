@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { HomeScreen } from './src/screens/HomeScreen';
 import { HistoryScreen } from './src/screens/HistoryScreen';
@@ -69,6 +70,7 @@ function SyncManager() {
 export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
       <NavigationContainer>
         <StatusBar style="light" />
         <SyncManager />
@@ -83,6 +85,7 @@ export default function App() {
           <Stack.Screen name="ReceiptUpload" component={ReceiptUploadScreen} />
         </Stack.Navigator>
       </NavigationContainer>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }
